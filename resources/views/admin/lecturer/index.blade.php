@@ -1,29 +1,34 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!-- <!doctype html> -->
+<!-- <html lang="en"> -->
+<!--<head>  -->
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta charset="utf-8"> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
  
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
-    <title>Form</title>    
-  </head>
-  <body>
+    <!-- <title>Form</title>     -->
+  <!-- </head> -->
+  <!-- <body> -->
  
 
 
 
 
 
-    <div class="col-md-6 mx-auto mt-5 container">
-      <div class="card">
-        <div class="card-header bg-primary text-white">Data Dosen</div>
+      
+  
+  <!-- </body> -->
+<!-- </html> // -->
+
+@extends('backend.master')
+@section('content') 
+
    @if(session('status'))
 
            <script>
@@ -34,14 +39,16 @@
   title: 'Sukses',
   text : "{{session('status')}}",
   
-  
-});
+  });
     </script>
       @endif  
 
           <div class="card-body">
+            <i class="bi bi-plus">Tambah Data</i>
+
+
            <table class="table table-hover" method="POST">
-  <thead>
+  <thead> 
     <tr>
       <th scope="col">No</th>
       <th scope="col">NIDN</th>
@@ -49,13 +56,14 @@
       <th scope="col">Address</th>
       <th scope="col">Phone</th>
       <th scope="col">Gender</th>
+      <th scope="col">Action</th>
     </tr>
-  </thead>
-  <tbody>
+  </thead> 
+   <tbody> 
    
   
-@foreach ($lecturers as $index=>$item)
-
+ @foreach ($lecturers as $index=>$item)
+ 
     <tr>
       <th scope="row">{{$index + 1}}</th>
       <td>{{$item->nidn}}</td>
@@ -63,13 +71,31 @@
       <td>{{$item->address}}</td>
       <td>{{$item->phone}}</td>
       <td>{{$item->gender}}</td>
+      <td>
+        <a class="btn btn-success" href="{{route('edit-lecturer',$item->id)}}">Edit</a>
+
+        
+        <form action="{{route('delete-lecturer',$item->id)}}" method="POST" class="form-check-inline" >
+          
+          @csrf
+          @method('DELETE')       
+
+          <button onclick="return confirm('Hapus Data ? ')" class="btn btn-danger" type="submit">Hapus</a></button>
+          
+        </form>
+      
+      </td>
     </tr>  
-    @endforeach  
-  </tbody>
+    @endforeach
+
+  </tbody> 
 </table>
+
+
     </div>
-      </div>
-        </div> 
-          </div>  
-  </body>
-</html> 
+      
+         
+
+    @endsection
+    
+
