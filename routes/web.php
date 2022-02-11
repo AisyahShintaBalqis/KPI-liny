@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\LecturerController;
+use App\Http\Controllers\Admin\SubjectController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +17,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
-   return view('auth.login');
+	return view('auth.login');
 });
 
+Route::middleware('auth')->group(function(){
+	Route::get('lecturer/create', [LecturerController::class, 'create'])->name("create-lecturer");
 
-Route::get('lecturer/create', [LecturerController::class, 'create'])->name("create-lecturer");
+	Route::post('lecturer/store', [LecturerController::class, 'store'])->name("store-lecturer");
 
-Route::post('lecturer/store', [LecturerController::class, 'store'])->name("store-lecturer");
+	Route::get('lecturer/index', [LecturerController::class, 'index'])->name("index-lecturer");
 
-Route::get('lecturer/index', [LecturerController::class, 'index'])->name("index-lecturer");
+	Route::get('lecturer/edit/{id}', [LecturerController::class, 'edit'])->name("edit-lecturer");
 
-Route::get('lecturer/edit/{id}', [LecturerController::class, 'edit'])->name("edit-lecturer");
+	Route::put('lecturer/update/{id}', [LecturerController::class, 'update'])->name("update-lecturer");
 
-Route::put('lecturer/update/{id}', [LecturerController::class, 'update'])->name("update-lecturer");
+	Route::delete('lecturer/delete/{id}', [LecturerController::class, 'delete'])->name("delete-lecturer");;
 
-Route::delete('lecturer/delete/{id}', [LecturerController::class, 'delete'])->name("delete-lecturer");;
+
+});
+
+//Route::get('subject/create', [SubjectController::class, 'create']);
+//Route::post('subject/store', [SubjectController::class, 'store'])->name("store-subject");
+Route::resource('subject', SubjectController::class);
+
 
 
 

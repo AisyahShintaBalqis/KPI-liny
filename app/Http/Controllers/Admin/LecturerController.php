@@ -16,6 +16,11 @@ class LecturerController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nidn' => 'required|string|unique:lecturers,nidn',
+            'name' => 'required|string',
+        ]);
+
     	Lecturer::create ($request->all());
 
         return redirect()->route('index-lecturer')->with('status','Sukses Insert Data');

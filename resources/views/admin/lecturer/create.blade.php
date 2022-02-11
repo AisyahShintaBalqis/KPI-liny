@@ -28,11 +28,25 @@
             @csrf
             <div class="mb-3" class mt-5>
               <label for="exampleInputNidn" class="form-label">NIDN</label>                 
-              <input type="text" name="nidn" class="form-control form-control-sm" id="exampleInputNidn" placeholder="NIDN">                    
+              <input type="text" name="nidn" class="form-control @error('nidn') is-invalid @enderror form-control-sm" id="exampleInputNidn" placeholder="NIDN">
+
+              @error('nidn')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror   
+                               
             </div>
             <div class="mb-3">
               <label for="exampleInputname" class="form-label">Name</label>
-              <input type="text" name="name" class="form-control form-control-sm" id="exampleInputname" placeholder="Name">
+              <input type="text" name="name" class="form-control @error('nidn') is-invalid @enderror form-control-sm" id="exampleInputname" placeholder="Name">
+
+              @error('name')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror  
+              
             </div>
             <div class="mb-3">
               <label for="exampleInputaddress" class="form-label">Address</label>
